@@ -7,15 +7,15 @@ import scala.io.Codec
 
 
 object CountWApp extends App {
-  // This code is added to quick solve encoding issues I encountered.
-  // Must remove
+  // This code is added to quick solve encoding issues I encountered reading UTF8 filenames
+  // Must remove and place in an appropiate place
   implicit val codec = Codec("UTF-8")
   codec.onMalformedInput(CodingErrorAction.REPLACE)
   codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
 
 
-//  def getCurrDir = new java.io.File(".").getCanonicalPath
-  def getCurrDir = "/tmp/recipes"
+  def getCurrDir = new java.io.File(".").getCanonicalPath
+//  def getCurrDir = "/tmp/recipes"
   val files = getFileList(getCurrDir)
   val fileCount = files.length
   val wordsMap = createWordMap(files)
