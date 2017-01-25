@@ -46,5 +46,5 @@ wordlist.map(finalMapofMaps.get(_)).flatten.groupBy(identity).mapValues(_.size)
 
 val tupArray = Array(("water", 1), ("potato", 2), ("salt", 4))
 
-tupArray.maxBy(_._1.length)._1.length
+
 

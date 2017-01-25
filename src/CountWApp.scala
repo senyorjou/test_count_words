@@ -13,11 +13,10 @@ object CountWApp extends App {
   codec.onMalformedInput(CodingErrorAction.REPLACE)
   codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
 
-
-  def getCurrDir = new java.io.File(".").getCanonicalPath
-//  def getCurrDir = "/tmp/recipes"
+  def getCurrDir = new java.io.File(args(0)).getCanonicalPath
   val files = getFileList(getCurrDir)
   val fileCount = files.length
+
   val wordsMap = createWordMap(files)
 
   println("Word matcher.")
@@ -88,7 +87,7 @@ object CountWApp extends App {
     }
   }
 
-  /** helper to print clean data. Can be removed or inlined, since does almost nothing
+  /** helper to print clean data. Can be removed or inlined, does almost nothing
     *
     *  @param inputStr String containing user input
     *  @return Array of Strings splitted by space
@@ -99,7 +98,6 @@ object CountWApp extends App {
     searchtokens
   }
 
-
   /** evaluate reduces words map by selecting keys passed
     * to obtain filenames, finally counts occurences of files
     *
@@ -109,7 +107,7 @@ object CountWApp extends App {
   def evaluate(words: Map[String, Seq[String]], inputArray: Array[String]): Seq[(String, Int)] = {
     val fileList = inputArray.map(words.get(_)).flatten
     val fileMapAgg = fileList.flatten.groupBy(identity).mapValues(_.size)
-    val fileMapSorted = fileMapAgg.toSeq.sortBy(_._2).reverse
+    val fileMapSorted = fileMapAgg.toSeq.sortBy(_._2).reverse.slice(0, 9)
 
     fileMapSorted
   }
